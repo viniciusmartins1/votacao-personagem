@@ -1,0 +1,8 @@
+<section class="grid">
+  <app-card-personagem
+    [nome]="nomePersonagem"
+    [imagem]="imagePersonagem"
+    [totalVotos]="qtdVotosPersonagem"
+    (votou)="incremetarVotoPersonagem()"
+  />
+</section>
