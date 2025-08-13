@@ -29,3 +29,8 @@ button:hover {
   background: #422476;
   color: white;
 }
+
+.sem-votos {
+  font-style: italic;
+  color: #999;
+}
