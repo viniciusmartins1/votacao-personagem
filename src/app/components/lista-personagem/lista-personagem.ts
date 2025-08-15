@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CardPersonagem } from '../card-personagem/card-personagem';
+import { PersonagensService } from '../../services/personagens-service';
 
 interface IPersonagem {
   id: number;
@@ -15,43 +16,13 @@ interface IPersonagem {
   styleUrl: './lista-personagem.css',
 })
 export class ListaPersonagem {
-  personagens: IPersonagem[] = [
-    {
-      id: 113231,
-      nome: 'Rick Sanchez',
-      imagem: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-      votos: 0,
-    },
-    {
-      id: 12312,
-      nome: 'Rick Sanchez',
-      imagem: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-      votos: 0,
-    },
-    {
-      id: 3342342,
-      nome: 'Rick Sanchez',
-      imagem: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-      votos: 0,
-    },
-    {
-      id: 4234234,
-      nome: 'Rick Sanchez',
-      imagem: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
-      votos: 0,
-    },
-    {
-      id: 5234234,
-      nome: 'Rick Sanchez',
-      imagem: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg',
-      votos: 0,
-    },
-  ];
+  personagens: IPersonagem[] = [];
+
+  constructor(private personagemService: PersonagensService) {
+    this.personagens = this.personagemService.getPersonagens();
+  }
 
   incremetarVotoPersonagem(id: number) {
-    const qualquerCoisa = this.personagens.find(
-      (personagem) => personagem.id === id
-    );
-    qualquerCoisa!.votos++;
+    this.personagemService.votarPersonagem(id);
   }
 }

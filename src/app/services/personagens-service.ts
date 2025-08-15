@@ -11,7 +11,7 @@ interface IPersonagem {
   providedIn: 'root',
 })
 export class PersonagensService {
-  personagens: IPersonagem[] = [
+  private personagens: IPersonagem[] = [
     {
       id: 113231,
       nome: 'Rick Sanchez',
@@ -46,5 +46,12 @@ export class PersonagensService {
 
   getPersonagens() {
     return this.personagens;
+  }
+
+  votarPersonagem(id: number) {
+    const personagem = this.personagens.find(
+      (personagem) => personagem.id === id
+    );
+    personagem!.votos++;
   }
 }
