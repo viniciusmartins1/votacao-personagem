@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardPersonagem } from '../card-personagem/card-personagem';
 import { PersonagensService } from '../../services/personagens-service';
 
@@ -15,14 +15,33 @@ interface IPersonagem {
   templateUrl: './lista-personagem.html',
   styleUrl: './lista-personagem.css',
 })
-export class ListaPersonagem {
+export class ListaPersonagem implements OnInit, OnDestroy {
   personagens: IPersonagem[] = [];
 
   constructor(private personagemService: PersonagensService) {
-    this.personagens = this.personagemService.getPersonagens();
+    console.log('constructor');
   }
 
-  incremetarVotoPersonagem(id: number) {
-    this.personagemService.votarPersonagem(id);
+  carregarPersonagem() {
+    this.personagemService.getPersonagens().subscribe((respostaDaApi) => {
+      this.personagens = respostaDaApi;
+    });
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit');
+    this.carregarPersonagem();
+  }
+
+  incremetarVotoPersonagem(evento: { id: number; totalVotos: number }) {
+    this.personagemService
+      .votarPersonagem(evento.id, evento.totalVotos)
+      .subscribe((resposta) => {
+        this.carregarPersonagem();
+      });
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
   }
 }

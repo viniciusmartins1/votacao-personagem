@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface IPersonagem {
   id: number;
@@ -43,15 +45,22 @@ export class PersonagensService {
       votos: 0,
     },
   ];
+  baseUrl: string = 'http://localhost:3000';
 
-  getPersonagens() {
-    return this.personagens;
+  constructor(private httpClient: HttpClient) {}
+
+  getPersonagens(): Observable<IPersonagem[]> {
+    return this.httpClient.get<IPersonagem[]>(`${this.baseUrl}/personagens`);
   }
 
-  votarPersonagem(id: number) {
-    const personagem = this.personagens.find(
-      (personagem) => personagem.id === id
-    );
-    personagem!.votos++;
+  votarPersonagem(id: number, totalVotos: number) {
+
+    return this.httpClient.patch(`http://localhost:3000/personagens/${id}`,{votos: totalVotos+1});
+    
   }
+
+  
+
+  
+
 }
