@@ -23,8 +23,10 @@ export class ListaPersonagem implements OnInit, OnDestroy {
   }
 
   carregarPersonagem() {
-    this.personagemService.getPersonagens().subscribe((respostaDaApi) => {
-      this.personagens = respostaDaApi;
+    this.personagemService.getPersonagens().subscribe({
+      next: (personagens) => {
+        this.personagens = personagens;
+      },
     });
   }
 

@@ -1,0 +1,15 @@
+
+<div class="detalhe-wrapper">
+  @if (personagem) {
+  <h2 class="titulo">🌟 Detalhes do Personagem</h2>
+  <div class="detalhe-conteudo">
+    <img class="imagem" [src]="personagem.imagem" alt="imagem" />
+    <div class="info">
+      <p class="nome">{{ personagem.nome }}</p>
+      <p class="votos">
+        🔥 Votos: <span>{{ personagem.votos }}</span>
+      </p>
+    </div>
+  </div>
+  }
+</div>
